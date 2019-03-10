@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link href="css/style.css" rel="stylesheet" type="text/css"> 
+     <title>20 Question Quiz</title>
+</head>
+  <body>
+
+  <div id="app">
+  </div>
+
+    <script>
+
+    var quiz = {
+      title: 'Vue-js 20 Question Quiz',
+      questions: [{text: 'Who is the creator of vue.js?', responses: [{text: 'Evan Me'}, {text: 'Sergey Brin '}, {text: 'Evan You', correct: true}, {text: 'Mark Zuckerberg'}, ]}, 
+                  {text: 'Three continents lie on the Tropic of Capricorn, South America & which other two?', responses: [{text: 'Europe, Africa'}, {text: 'Australia, Africa', correct: true}, {text: 'USA, Europe'}, {text: 'Aisa, Africa'}, ]}, 
+                  {text: 'In American currency 10 cents make a what?', responses: [{text: 'Dime', correct: true}, {text: 'Quarter'}, {text: '50 Cent'}, {text: 'Dollar'}, ]}, 
+                  {text: 'Afrikaans was developed from which European language?', responses: [{text: 'German'}, {text: 'French'}, {text: 'Greek'}, {text: 'Dutch', correct: true}, ]}, 
+                  {text: 'An Ortanique is a cross between a tangerine and what other fruit?', responses: [{text: 'Grape'}, {text: 'Melon'}, {text: 'Orange', correct: true}, {text: 'Peach'}, ]}, 
+                  {text: 'What Italian word for "Scratched Drawing" can be found on walls all over the world?', responses: [{text: 'Wall Art'}, {text: 'Graffitti', correct: true}, {text: 'Pizza'}, {text: 'Pasta'}, ]}, 
+                  {text: 'What musical features "Some Enchanted Evening" and "There Is Nothing Like A Dame"?', responses: [{text: 'South Pacific', correct: true}, {text: 'Lady & the Tramp'}, {text: 'Cats'}, {text: 'Madam Butterfly'}, ]}, 
+                  {text: 'What was the name of the first manned lunar landing mission in 1969?', responses: [{text: 'Apollo I'}, {text: 'Apollo X'}, {text: 'Apollo VIII'}, {text: 'Apollo XI', correct: true}, ]}, 
+                  {text: 'Which boxer was nicknamed "The Dark Destroyer"?', responses: [{text: 'Mohamed Ali'}, {text: 'George Forman'}, {text: 'Nigel Benn', correct: true}, {text: 'Rocky'}, ]}, 
+                  {text: 'What was the name of Ritchie Valens girlfriend?', responses: [{text: 'Jill'}, {text: 'Donna', correct: true}, {text: 'Stacey'}, {text: 'Eva'}, ]}, 
+                  {text: 'What is the procedure called where an anaesthetic is injected close to the spinal cord?', responses: [{text: 'Epidural', correct: true}, {text: 'Spinal Tap'}, {text: 'Effusion'}, {text: 'Hemorage'}, ]}, 
+                  {text: 'What poisonous oily liquid occurs naturally in tobacco leaves?', responses: [{text: 'THC'}, {text: 'Tar'}, {text: 'NC14D'}, {text: 'Nicotine', correct: true}, ]}, 
+                  {text: 'Who had his first UK top 10 hit with "Wichita Lineman"?', responses: [{text: 'Adele'}, {text: 'Westlife'}, {text: 'Glen Cambell', correct: true}, {text: 'Robby Williams'}, ]}, 
+                  {text: 'Which sign of the Zodiac is represented by the Scales?', responses: [{text: 'Picies'}, {text: 'Libra', correct: true}, {text: 'Virgo'}, {text: 'Taurus'}, ]}, 
+                  {text: 'In which country was Rudyard Kipling born?', responses: [{text: 'India', correct: true}, {text: 'France'}, {text: 'South Africa'}, {text: 'Germany'}, ]}, 
+                  {text: 'What is the gemstone for September?', responses: [{text: 'Diamond'}, {text: 'Ruby'}, {text: 'Quartz'}, {text: 'Sapphire', correct: true}, ]}, 
+                  {text: 'What instrument has been nicknamed the "Mississippi Saxaphone"?', responses: [{text: 'Banjo'}, {text: 'Flute'}, {text: 'Harmonica', correct: true}, {text: 'Triangle'}, ]}, 
+                  {text: 'One and a half litres of champagne is known as a what?', responses: [{text: 'Quart'}, {text: 'Magnum', correct: true}, {text: 'Big Box'}, {text: 'Case'}, ]}, 
+                  {text: 'In alphabetical order name the three particles that make up an atom?', responses: [{text: 'Electron, Neutron, Proton', correct: true}, {text: 'Neutron, Electron, Proton'}, {text: 'Proton, Atom, Neutron'}, {text: 'Atom, Electron, Neutron'}, ]}, 
+                  {text: 'What is the common name of the "Auora Borealis"?', responses: [{text: 'Shooting Star'}, {text: 'Stone Henge'}, {text: 'Rainbow'}, {text: 'Northern Lights', correct: true}, ]}, 
+                ]
+              };
+          
+    new Vue({
+      el: '#app',
+      data: {
+        quiz: quiz,
+              questionIndex: 0,  // Store current question index
+              userAnswer: Array(quiz.questions.length).fill(false) // An array to count number of correct answers , initilizzed to empty
+      },
+      
+      methods: {
+        nextQuestion: function() {  // Go to next question
+          this.questionIndex++;
+        },
+        prevQuestion: function() {     // Go to previous question
+          this.questionIndex--;
+        },
+        mark: function() { // Return "true" count in userResponses
+          return this.userAnswer.filter(function(num) { return num }).length;
+        }
+      },
+      template: ` 
+      <div id="wrapper">
+
+        <img src="img/vue_logo.png">
+        <h1>{{ quiz.title }}</h1>
+
+          
+        <div v-for="(question, index) in quiz.questions">
+                <div v-show="index === questionIndex">   <!-- this only shows the current question -->
+
+                  
+                    <h2>{{ question.text }}</h2>
+                  
+                    <div id="choice">
+                    <ul>
+                        <li v-for="response in question.responses">
+                        <label>
+                            <input type="radio" 
+                                v-bind:value="response.correct" 
+                                v-bind:name="index" 
+                                v-model="userAnswer[index]"> {{response.text}}
+                        </label>
+                        </li>
+                    </ul>
+                    </div>
+                    <button v-if="questionIndex > 0" v-on:click="prevQuestion">
+                        << Prev
+                    </button>
+                    <button v-on:click="nextQuestion">
+                        Next >>
+                    </button>
+
+                    <h3>Question of {{ index + 1 }} of {{ quiz.questions.length  }}</h3>
+                </div>
+            </div>
+
+            <div v-show="questionIndex === quiz.questions.length">
+                <h2> Quiz Complete </h2>
+                <p>  Total Score: {{ mark() }} / {{ quiz.questions.length }} </p>
+
+                <p v-if="mark()  < 10">  Try Again - Try Harder - Think Carefully about each question  </p>
+                <p v-else-if="mark()  >= 10 && mark()  <= 15 ">  Good Job - Try a bit harder to get a perfect score  </p>
+                <p v-else-if="mark()  > 15">  Well done - Great Result A++ </p>
+                <p v-else>  Error Calulating Score   </p>
+
+                <button onclick="location.reload();"> Start Quiz Again</button>
+        </div>
+      </div>
+      `,
+
+    });
+
+    </script>
+  </body>
+</html>
